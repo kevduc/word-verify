@@ -14,12 +14,12 @@
 
     &::after {
       content: '';
-      background: linear-gradient(0deg, var(--background-color) 70%, rgba(255, 255, 255, 0));
+      background: linear-gradient(0deg, var(--background-color) 50%, rgba(255, 255, 255, 0));
       position: absolute;
       bottom: 0em;
       right: 0.8em;
       left: 0.2em;
-      height: 0.5em;
+      height: 1em;
       border-bottom-left-radius: 0.3em;
       border-bottom-right-radius: 0.3em;
     }
