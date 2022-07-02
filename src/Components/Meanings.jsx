@@ -44,7 +44,7 @@ function Meanings({ meanings, className, ...rest }) {
             ))
           }
           default: {
-            return <p className="meanings__status meanings__status--error">Unknown error</p>
+            return <p className="meanings__status meanings__status--error">Something went wrong, try again later</p>
           }
         }
       })()}

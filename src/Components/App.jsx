@@ -39,6 +39,10 @@ function App() {
 
   const handleFetchDictionaryEntriesError = (word, error) => {
     console.error(error, word)
+    const newWords = [...words]
+    const newWord = newWords.find((w) => w.id === word.id)
+    newWord.meanings.status = 'unknown-error'
+    setWords(newWords)
   }
 
   const fetchWordMeanings = async (word) => {
@@ -64,7 +68,7 @@ function App() {
 
   useEffect(() => {
     if (currentWord === null) return
-    if (currentWord.meanings.status === 'unfetched') {
+    if (['unfetched', 'error', 'unknown-error'].includes(currentWord.meanings.status)) {
       fetchWordMeanings(currentWord)
     }
   }, [currentWord])
