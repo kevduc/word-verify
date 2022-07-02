@@ -1,9 +1,15 @@
 @import './variables.scss';
 
 :root {
-  --primary-color: #{$primary-color};
   --body-text: #{$body-text};
   --body-background: #{$body-background};
+
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+  --info-color: #{$info-color};
+  --success-color: #{$success-color};
+  --warning-color: #{$warning-color};
+  --danger-color: #{$danger-color};
 }
 
 *,

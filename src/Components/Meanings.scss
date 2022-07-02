@@ -30,6 +30,13 @@
     font-size: clamp(0.8em, 1.2em, 3.3vw);
   }
 
+  &_error-message {
+    margin: 0.5em 1em 0.5em 0.5em;
+    font-size: 0.7em;
+    line-height: 1em;
+    color: $warning-color;
+  }
+
   &__list {
     font-size: 0.7em;
     overflow-y: auto;

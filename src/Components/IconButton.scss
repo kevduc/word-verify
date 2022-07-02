@@ -34,22 +34,22 @@
 
   &--danger {
     color: #fff;
-    @include button-background-color(#d82f15);
+    @include button-background-color($danger-color);
   }
 
   &--warning {
     color: #fff;
-    @include button-background-color(#d89015);
+    @include button-background-color($warning-color);
   }
 
   &--success {
     color: #fff;
-    @include button-background-color(#00a650);
+    @include button-background-color($success-color);
   }
 
   &--info {
     color: #fff;
-    @include button-background-color(#1d8eb7);
+    @include button-background-color($info-color);
   }
 
   &--primary {
@@ -59,6 +59,6 @@
 
   &--secondary {
     color: #fff;
-    @include button-background-color(#5a5a5a);
+    @include button-background-color($secondary-color);
   }
 }

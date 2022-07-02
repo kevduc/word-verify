@@ -67,7 +67,7 @@ function App() {
     if (currentWord.meanings.status === 'unfetched') {
       fetchWordMeanings(currentWord)
     }
-  }, [words])
+  }, [currentWord])
 
   const assignToCategory = (word, category) => setWords([...words.filter((w) => word.id !== w.id), { ...word, category }])
 
