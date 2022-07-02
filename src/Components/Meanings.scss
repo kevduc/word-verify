@@ -4,6 +4,7 @@
 .meanings {
   &__container {
     height: 100vh;
+    text-align: center;
 
     position: relative;
     display: flex;
@@ -25,22 +26,33 @@
   }
 
   &__title {
-    text-align: center;
     margin: 0;
     font-size: clamp(0.8em, 1.2em, 3.3vw);
   }
 
-  &_error-message {
+  &__status {
     margin: 0.5em 1em 0.5em 0.5em;
     font-size: 0.7em;
     line-height: 1em;
-    color: $warning-color;
+
+    &--info {
+      color: $info-color;
+    }
+
+    &--warning {
+      color: $warning-color;
+    }
+
+    &--error {
+      color: $danger-color;
+    }
   }
 
   &__list {
     font-size: 0.7em;
     overflow-y: auto;
     padding-right: 1em;
+    text-align: left;
 
     &::-webkit-scrollbar {
       background-color: darken($body-background, 5%);

@@ -31,7 +31,7 @@ function App() {
       newWord.meanings.status = 'error'
     } else {
       newWord.meanings.value = entries.flatMap((entry) => entry.meanings)
-      newWord.meanings.status = 'done'
+      newWord.meanings.status = 'ready'
     }
 
     setWords(newWords)
@@ -94,9 +94,11 @@ function App() {
   return (
     <main id="app">
       <div className="progress">
-        {done
-          ? `Done all ${wordsCount ?? '?'} words!`
-          : `${uncategorizedWordsCount ?? '?'} words left out of ${wordsCount ?? '?'}`}
+        <p className="progress__text">
+          {done
+            ? `Done all ${wordsCount ?? '?'} words!`
+            : `${uncategorizedWordsCount ?? '?'} words left out of ${wordsCount ?? '?'}`}
+        </p>
       </div>
       <div className="answer answer--no">
         <IconButton icon="✘" type="danger" onClick={() => assignToCategory(currentWord, 'discard')} />

@@ -19,7 +19,9 @@
   display: grid;
   place-content: center;
 
-  font-size: clamp(1.5em, 2.5em, 10vw);
+  &__text {
+    font-size: clamp(1.3em, 2.5em, 4vw);
+  }
 }
 
 .word {
@@ -65,8 +67,7 @@
   grid-area: meanings;
 
   display: grid;
-  align-items: stretch;
-  justify-content: center;
+  place-content: stretch;
 
   font-size: clamp(1em, 1.5em, 7vw);
 

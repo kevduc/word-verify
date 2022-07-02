@@ -8,7 +8,6 @@ function WordBucket({ title, words, category, className, onWordClick, ...rest })
   const filteredWords = words?.filter((word) => word.category === category)
 
   const handleScroll = (evt) => {
-    console.log(evt)
     setIsScrolledToBottom(Math.abs(evt.target.scrollHeight - evt.target.scrollTop - evt.target.clientHeight) < 5)
   }
 

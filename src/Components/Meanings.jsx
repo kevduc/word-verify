@@ -4,39 +4,50 @@ function Meanings({ meanings, className, ...rest }) {
   return (
     <div className={`meanings__container ${className ?? ''}`} {...rest}>
       <h3 className="meanings__title">Meanings</h3>
-
-      {meanings?.status === 'done' && Array.isArray(meanings.value) ? (
-        <ul className="meanings__list">
-          {meanings.value?.map((meaning, idx) => (
-            <li className="meaning" key={idx}>
-              <h4 className="meaning__title">{meaning.partOfSpeech}</h4>
-              <ol className="definitions__list">
-                {meaning.definitions?.map(({ definition, example, synonyms, antonyms }, idx) => (
-                  <li key={idx} className="definition">
-                    <p className="definition__text">{definition}</p>
-                    {example && (
-                      <p className="definition__example">
-                        Example: <i>{example}</i>
-                      </p>
-                    )}
+      {(() => {
+        switch (meanings?.status ?? null) {
+          case null:
+          case 'unfetched':
+          case 'loading': {
+            return <p className="meanings__status">Loading...</p>
+          }
+          case 'ready': {
+            return (
+              <ul className="meanings__list">
+                {meanings.value?.map((meaning, idx) => (
+                  <li className="meaning" key={idx}>
+                    <h4 className="meaning__title">{meaning.partOfSpeech}</h4>
+                    <ol className="definitions__list">
+                      {meaning.definitions?.map(({ definition, example, synonyms, antonyms }, idx) => (
+                        <li key={idx} className="definition">
+                          <p className="definition__text">{definition}</p>
+                          {example && (
+                            <p className="definition__example">
+                              Example: <i>{example}</i>
+                            </p>
+                          )}
+                        </li>
+                      ))}
+                    </ol>
                   </li>
-                ))}
-              </ol>
-            </li>
-          )) ?? ''}
-        </ul>
-      ) : meanings?.status === 'loading' ? (
-        'Loading...'
-      ) : meanings?.status === 'error' ? (
-        Object.entries(meanings.value).map(([key, value], i) => (
-          <p className="meanings_error-message" key={key}>
-            {value}
-            {i === 0 ? ' 🤷‍♂️' : ''}
-          </p>
-        ))
-      ) : (
-        'Unknown Error'
-      )}
+                )) ?? ''}
+              </ul>
+            )
+          }
+          case 'error': {
+            // Showing only title prop for error value for now
+            return Object.entries({ title: meanings.value.title }).map(([key, value], i) => (
+              <p className="meanings__status meanings__status--warning" key={key}>
+                {value}
+                {i === 0 ? ' 🤷‍♂️' : ''}
+              </p>
+            ))
+          }
+          default: {
+            return <p className="meanings__status meanings__status--error">Unknown error</p>
+          }
+        }
+      })()}
     </div>
   )
 }
