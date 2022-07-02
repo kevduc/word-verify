@@ -1,3 +1,11 @@
+@import './variables.scss';
+
+:root {
+  --primary-color: #{$primary-color};
+  --body-text: #{$body-text};
+  --body-background: #{$body-background};
+}
+
 *,
 *::after,
 *::before {
@@ -12,9 +20,8 @@ html {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #333;
 
-  --body-background: #fafafa;
+  color: var(--body-text);
   background-color: var(--body-background);
 }
 

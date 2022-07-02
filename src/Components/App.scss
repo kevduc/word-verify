@@ -6,7 +6,7 @@
   grid-template-areas:
     'progress progress progress'
     'answer-no word answer-yes'
-    'words-invalid info words-valid';
+    'words-invalid meanings words-valid';
   height: 100%;
   width: 100%;
 }
@@ -59,25 +59,12 @@
   }
 }
 
-.definition {
-  grid-area: info;
+.meanings {
+  grid-area: meanings;
 
   display: grid;
   align-items: stretch;
   justify-content: center;
 
   font-size: clamp(1em, 1.5em, 7vw);
-
-  h3,
-  p {
-    margin: 0;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: clamp(0.8em, 1.2em, 3.3vw);
-  }
-
-  p {
-  }
 }

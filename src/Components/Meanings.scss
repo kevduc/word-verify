@@ -1,0 +1,81 @@
+@use 'sass:color';
+@import '../variables.scss';
+
+.meanings {
+  &__container {
+    height: 425px;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 0.5em;
+
+    &::after {
+      content: '';
+      background: linear-gradient(0deg, var(--body-background) 70%, color.change($body-background, $alpha: 0));
+      position: absolute;
+      bottom: 0em;
+      right: 0.8em;
+      left: 0.2em;
+      height: 0.5em;
+      border-bottom-left-radius: 0.3em;
+      border-bottom-right-radius: 0.3em;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    margin: 0;
+    font-size: clamp(0.8em, 1.2em, 3.3vw);
+  }
+
+  &__list {
+    font-size: 0.7em;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      background-color: darken($body-background, 5%);
+      width: 0.3em;
+      border-radius: 1em;
+
+      &-thumb {
+        background-color: lighten($body-text, 20%);
+        border-radius: 1em;
+      }
+    }
+
+    margin: 0;
+    list-style-type: '📃 ';
+
+    .meaning {
+      padding: 0.25em;
+      &__title {
+        font-size: clamp(0.8em, 1em, 3.3vw);
+        margin: 0;
+      }
+    }
+
+    .definitions__list {
+      margin: 0;
+      padding: 0;
+      // list-style: none;
+
+      .definition {
+        padding: 0.2em 0;
+        line-height: 1.2em;
+
+        font-size: clamp(0.6em, 0.8em, 5vw);
+        p {
+          margin: 0.2em 0;
+        }
+
+        // &__text {
+        // }
+        &__example {
+          font-size: smaller;
+        }
+      }
+    }
+  }
+}

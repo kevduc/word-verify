@@ -1,3 +1,6 @@
+@use 'sass:color';
+@import '../variables.scss';
+
 .word-bucket {
   text-align: center;
   width: 100%;
@@ -36,7 +39,7 @@
   }
 
   &__scroll-container {
-    height: 400px;
+    height: 425px;
     overflow-y: auto;
 
     border: 0.2em solid #333;
@@ -44,7 +47,7 @@
 
     &::after {
       content: '';
-      background: linear-gradient(var(--body-background) 70%, rgba(255, 255, 255, 0));
+      background: linear-gradient(var(--body-background) 70%, color.change($body-background, $alpha: 0));
       position: absolute;
       top: 0.2em;
       right: 0.8em;
@@ -53,6 +56,17 @@
       border-top-left-radius: 0.3em;
       border-top-right-radius: 0.3em;
     }
+
+    &::-webkit-scrollbar {
+      background-color: darken($body-background, 5%);
+      width: 0.3em;
+      border-radius: 1em;
+
+      &-thumb {
+        background-color: lighten($body-text, 20%);
+        border-radius: 1em;
+      }
+    }
   }
 
   &__list {
@@ -60,7 +74,7 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0.6em 0.5em 0.4em 0.5em;
+    padding: 1.2em 0.5em 0.4em 0.5em;
     margin: 0;
 
     width: 100%;
@@ -71,7 +85,15 @@
 
     li {
       display: inline-block;
-      padding: 0.3em 0.5em;
+      padding: 0.1em 0.5em;
+      cursor: pointer;
+      border-radius: 0.5em;
+      border: 0.2em solid transparent;
+
+      &:hover {
+        background-color: color.change($primary-color, $alpha: 0.2);
+        border: 0.2em solid color.change($primary-color, $alpha: 0.2);
+      }
     }
   }
 }

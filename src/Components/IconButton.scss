@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 @mixin button-background-color($background-color) {
   background-color: $background-color;
   border-color: darken($background-color, 10%);
@@ -52,7 +54,7 @@
 
   &--primary {
     color: #fff;
-    @include button-background-color(#075dba);
+    @include button-background-color($primary-color);
   }
 
   &--secondary {
