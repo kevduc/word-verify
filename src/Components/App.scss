@@ -1,0 +1,83 @@
+#app {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-rows: 10% 1fr auto;
+  grid-template-areas:
+    'progress progress progress'
+    'answer-no word answer-yes'
+    'words-invalid info words-valid';
+  height: 100%;
+  width: 100%;
+}
+
+.progress {
+  grid-area: progress;
+
+  display: grid;
+  place-content: center;
+
+  font-size: clamp(1.5em, 2.5em, 10vw);
+}
+
+.word {
+  grid-area: word;
+
+  display: grid;
+  place-items: center;
+
+  font-size: clamp(1em, 4.5em, 6vw);
+}
+
+.words {
+  display: grid;
+  place-content: stretch;
+
+  font-size: clamp(1em, 1.5em, 7vw);
+
+  &--valid {
+    grid-area: words-valid;
+  }
+
+  &--invalid {
+    grid-area: words-invalid;
+  }
+}
+
+.answer {
+  display: grid;
+  place-content: center;
+
+  padding: min(5em, 1.5vw);
+
+  &--no {
+    grid-area: answer-no;
+  }
+
+  &--yes {
+    grid-area: answer-yes;
+  }
+}
+
+.definition {
+  grid-area: info;
+
+  display: grid;
+  align-items: stretch;
+  justify-content: center;
+
+  font-size: clamp(1em, 1.5em, 7vw);
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(0.8em, 1.2em, 3.3vw);
+  }
+
+  p {
+  }
+}

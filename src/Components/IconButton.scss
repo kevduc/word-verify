@@ -1,0 +1,62 @@
+@mixin button-background-color($background-color) {
+  background-color: $background-color;
+  border-color: darken($background-color, 10%);
+  box-shadow: 3px 3px 5px 0 rgba(darken($background-color, 15%), 0.3);
+
+  &:hover {
+    background-color: lighten($background-color, 5%);
+  }
+
+  &:active {
+    background-color: darken($background-color, 5%);
+  }
+}
+
+.icon-button {
+  font-size: min(4em, 6vw);
+  padding: 1em;
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: attr(data-icon);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -53%);
+  }
+
+  border-radius: 0.15em;
+  border-width: 0.1em;
+  border-style: solid;
+
+  &--danger {
+    color: #fff;
+    @include button-background-color(#d82f15);
+  }
+
+  &--warning {
+    color: #fff;
+    @include button-background-color(#d89015);
+  }
+
+  &--success {
+    color: #fff;
+    @include button-background-color(#00a650);
+  }
+
+  &--info {
+    color: #fff;
+    @include button-background-color(#1d8eb7);
+  }
+
+  &--primary {
+    color: #fff;
+    @include button-background-color(#075dba);
+  }
+
+  &--secondary {
+    color: #fff;
+    @include button-background-color(#5a5a5a);
+  }
+}

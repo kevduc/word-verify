@@ -1,0 +1,31 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333;
+
+  --body-background: #fafafa;
+  background-color: var(--body-background);
+}
+
+#root {
+  height: 100%;
+  display: grid;
+  place-content: stretch;
+  grid-template-columns: 5% 1fr 5%;
+  grid-template-rows: 5% 1fr 5%;
+  grid-template-areas:
+    'header header header'
+    'sidebar-left content sidebar-right'
+    'footer footer footer';
+}
