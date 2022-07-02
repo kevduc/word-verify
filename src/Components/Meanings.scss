@@ -3,17 +3,17 @@
 
 .meanings {
   &__container {
-    height: 425px;
+    height: 100vh;
 
     position: relative;
     display: flex;
     flex-direction: column;
 
-    padding: 0 0.5em;
+    padding: 1em 0.2em 0.5em 0.5em;
 
     &::after {
       content: '';
-      background: linear-gradient(0deg, var(--body-background) 70%, color.change($body-background, $alpha: 0));
+      background: linear-gradient(0deg, var(--background-color) 70%, rgba(255, 255, 255, 0));
       position: absolute;
       bottom: 0em;
       right: 0.8em;
@@ -33,6 +33,7 @@
   &__list {
     font-size: 0.7em;
     overflow-y: auto;
+    padding-right: 1em;
 
     &::-webkit-scrollbar {
       background-color: darken($body-background, 5%);

@@ -1,12 +1,14 @@
 #app {
-  grid-area: content;
+  // grid-area: content;
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr;
-  grid-template-rows: 10% 1fr auto;
+  grid-template-columns: 1% 1fr 1fr 1fr 1fr 1.5fr;
+  grid-template-rows: 5% auto 1fr auto 5%;
   grid-template-areas:
-    'progress progress progress'
-    'answer-no word answer-yes'
-    'words-invalid meanings words-valid';
+    'header header header header header meanings'
+    'sidebar-left progress progress progress progress meanings'
+    'sidebar-left answer-no word word answer-yes meanings'
+    'sidebar-left words-invalid words-invalid words-valid words-valid meanings'
+    'footer footer footer footer footer meanings';
   height: 100%;
   width: 100%;
 }
@@ -67,4 +69,7 @@
   justify-content: center;
 
   font-size: clamp(1em, 1.5em, 7vw);
+
+  --background-color: #f0f0f0;
+  background-color: var(--background-color);
 }

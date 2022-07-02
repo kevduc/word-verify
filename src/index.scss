@@ -29,10 +29,10 @@ html {
   height: 100%;
   display: grid;
   place-content: stretch;
-  grid-template-columns: 5% 1fr 5%;
-  grid-template-rows: 5% 1fr 5%;
-  grid-template-areas:
-    'header header header'
-    'sidebar-left content sidebar-right'
-    'footer footer footer';
+  // grid-template-columns: 5% 1fr 5%;
+  // grid-template-rows: 5% 1fr 5%;
+  // grid-template-areas:
+  //   'header header header'
+  //   'sidebar-left content sidebar-right'
+  //   'footer footer footer';
 }
