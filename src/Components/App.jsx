@@ -8,26 +8,21 @@ const Categories = ['keep', 'discard']
 
 function App() {
   const [words, setWords] = useState(null)
-  const [wordIdx, setWordIdx] = useState(null)
-  const [done, setDone] = useState(false)
+  const nextUncategorizedWord = words?.find((word) => word.category === 'none') ?? null
+  const currentWord = nextUncategorizedWord
+  const done = words !== null && nextUncategorizedWord === null
+
+  const wordsCount = words?.length
+  const uncategorizedWordsCount = words?.filter((word) => word.category === 'none').length
 
   useEffect(() => {
-    setWords(wordList.words.map((word) => ({ value: word, category: 'none' })))
-    setWordIdx(0)
+    setWords(wordList.words.map((word, idx) => ({ id: idx, value: word, category: 'none' })))
   }, [])
 
   const assignToCategory = (category) => {
     const newWords = [...words]
-    newWords[wordIdx].category = category
+    newWords.find((word) => word.id === currentWord.id).category = category
     setWords(newWords)
-
-    const newWordIdx = wordIdx + 1
-
-    if (newWordIdx >= words.length) {
-      setDone(true)
-    } else {
-      setWordIdx(newWordIdx)
-    }
   }
 
   useEffect(() => {
@@ -46,14 +41,14 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [words, wordIdx, done, setDone, setWordIdx, setWords])
-
-  const currentWord = words?.[wordIdx] ?? null
+  }, [assignToCategory])
 
   return (
     <main id="app">
       <div className="progress">
-        {done ? `Done all ${words?.length ?? '?'} words!` : `Word ${wordIdx ?? '?'} out of ${words?.length ?? '?'}`}
+        {done
+          ? `Done all ${wordsCount ?? '?'} words!`
+          : `${uncategorizedWordsCount ?? '?'} words left out of ${wordsCount ?? '?'}`}
       </div>
       <div className="answer answer--no">
         <IconButton icon="✘" type="danger" onClick={() => assignToCategory('discard')} />
