@@ -120,7 +120,7 @@ function App() {
         <IconButton
           className="reset-button"
           title="Reset all categorization"
-          icon="⟳"
+          icon="↻"
           type="warning"
           onClick={() => handleReset()}
         />

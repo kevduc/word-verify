@@ -4,13 +4,18 @@
 .meanings {
   &__container {
     height: 100vh;
+
+    @media (max-width: 600px) {
+      height: 63vh;
+    }
+
     text-align: center;
 
     position: relative;
     display: flex;
     flex-direction: column;
 
-    padding: 1em 0.2em 0.5em 0.5em;
+    padding: 0.8em 0.2em 0.5em 0.5em;
 
     &::after {
       content: '';
@@ -26,7 +31,7 @@
   }
 
   &__title {
-    margin: 0;
+    margin: 0 0 0.2em 0;
     font-size: clamp(0.8em, 1.2em, 3.3vw);
   }
 
