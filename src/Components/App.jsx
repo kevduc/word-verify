@@ -6,6 +6,13 @@ import WordBucket from './WordBucket'
 import Meanings from './Meanings'
 
 const Categories = ['keep', 'discard']
+const getInitialWords = () =>
+  wordList.words.map((word, idx) => ({
+    id: idx,
+    value: word,
+    category: 'none',
+    meanings: { value: null, status: 'unfetched' },
+  }))
 
 const fetchDictionaryEntries = (word) => {
   const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
@@ -56,15 +63,21 @@ function App() {
   }
 
   useEffect(() => {
-    const initialWords = wordList.words.map((word, idx) => ({
-      id: idx,
-      value: word,
-      category: 'none',
-      meanings: { value: null, status: 'unfetched' },
-    }))
-
+    const storedWords = localStorage.getItem('words')
+    let storedWordsParsed = null
+    try {
+      storedWordsParsed = storedWords ? JSON.parse(storedWords) : null
+    } catch (e) {
+      console.warn(e)
+    }
+    const initialWords = storedWordsParsed ?? getInitialWords()
     setWords(initialWords)
   }, [])
+
+  useEffect(() => {
+    if (words === null) return
+    localStorage.setItem('words', JSON.stringify(words))
+  }, [words])
 
   useEffect(() => {
     if (currentWord === null) return
@@ -91,12 +104,27 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [assignToCategory])
+  }, [assignToCategory, currentWord])
 
-  const handleWordClick = (word) => setWords([{ ...word, category: 'none' }, ...words.filter((w) => w.id !== word.id)])
+  const handleReset = () => {
+    setWords(getInitialWords())
+  }
+
+  const handleWordClick = (word) => {
+    setWords([{ ...word, category: 'none' }, ...words.filter((w) => w.id !== word.id)])
+  }
 
   return (
     <main id="app">
+      <div className="reset-button__container">
+        <IconButton
+          className="reset-button"
+          title="Reset all categorization"
+          icon="⟳"
+          type="warning"
+          onClick={() => handleReset()}
+        />
+      </div>
       <div className="progress">
         <p className="progress__text">
           {done
@@ -105,13 +133,13 @@ function App() {
         </p>
       </div>
       <div className="answer answer--no">
-        <IconButton icon="✘" type="danger" onClick={() => assignToCategory(currentWord, 'discard')} />
+        <IconButton title="Discard" icon="✘" type="danger" onClick={() => assignToCategory(currentWord, 'discard')} />
       </div>
       <div className="word">
         <p id="word">{currentWord?.value ?? ''}</p>
       </div>
       <div className="answer answer--yes">
-        <IconButton icon="✔" type="success" onClick={() => assignToCategory(currentWord, 'keep')} />
+        <IconButton title="Keep" icon="✔" type="success" onClick={() => assignToCategory(currentWord, 'keep')} />
       </div>
       <div className="meanings">
         <Meanings meanings={currentWord?.meanings} />
