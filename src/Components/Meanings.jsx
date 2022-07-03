@@ -14,7 +14,7 @@ function Meanings({ meanings, className, ...rest }) {
           case 'ready': {
             return (
               <ul className="meanings__list">
-                {meanings.value?.map((meaning, idx) => (
+                {meanings?.value?.map((meaning, idx) => (
                   <li className="meaning" key={idx}>
                     <h4 className="meaning__title">{meaning.partOfSpeech}</h4>
                     <ol className="definitions__list">
@@ -36,9 +36,9 @@ function Meanings({ meanings, className, ...rest }) {
           }
           case 'error': {
             // Showing only title prop for error value for now
-            return Object.entries({ title: meanings.value.title }).map(([key, value], i) => (
+            return Object.entries({ title: meanings?.value?.title }).map(([key, value], i) => (
               <p className="meanings__status meanings__status--warning" key={key}>
-                {value}
+                {value ?? 'No meaning found'}
                 {i === 0 ? ' 🤷‍♂️' : ''}
               </p>
             ))

@@ -55,6 +55,7 @@ function App() {
   const fetchWordMeanings = async (word) => {
     const newWords = [...words]
     const newWord = newWords.find((w) => w.id === word.id)
+    if ((newWord.meanings ?? null) === null) newWord.meanings = { value: null, status: 'unfetched' }
     fetchDictionaryEntries(word.value)
       .then((entries) => handleFetchDictionaryEntriesSuccess(newWord, entries))
       .catch((e) => handleFetchDictionaryEntriesError(newWord, e))
@@ -76,12 +77,12 @@ function App() {
 
   useEffect(() => {
     if (words === null) return
-    localStorage.setItem('words', JSON.stringify(words))
+    localStorage.setItem('words', JSON.stringify(words.map((word) => ({ ...word, meanings: {} }))))
   }, [words])
 
   useEffect(() => {
     if (currentWord === null) return
-    if (['unfetched', 'error', 'unknown-error'].includes(currentWord.meanings.status)) {
+    if (['unfetched', 'error', 'unknown-error', null].includes(currentWord.meanings?.status ?? null)) {
       fetchWordMeanings(currentWord)
     }
   }, [currentWord])
