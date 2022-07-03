@@ -133,13 +133,18 @@ function App() {
         </p>
       </div>
       <div className="answer answer--no">
-        <IconButton title="Discard" icon="✘" type="danger" onClick={() => assignToCategory(currentWord, 'discard')} />
+        <IconButton
+          title="Discard (Left Arrow)"
+          icon="✘"
+          type="danger"
+          onClick={() => assignToCategory(currentWord, 'discard')}
+        />
       </div>
       <div className="word">
         <p id="word">{currentWord?.value ?? ''}</p>
       </div>
       <div className="answer answer--yes">
-        <IconButton title="Keep" icon="✔" type="success" onClick={() => assignToCategory(currentWord, 'keep')} />
+        <IconButton title="Keep (Right Arrow)" icon="✔" type="success" onClick={() => assignToCategory(currentWord, 'keep')} />
       </div>
       <div className="meanings">
         <Meanings meanings={currentWord?.meanings} />
