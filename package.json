@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "devhost": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prevhost": "vite preview --host"
   },
   "dependencies": {
     "lodash": "^4.17.21",

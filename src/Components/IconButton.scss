@@ -2,7 +2,7 @@
 
 @mixin button-background-color($background-color) {
   background-color: $background-color;
-  border-color: darken($background-color, 10%);
+  border-color: darken($background-color, 7%);
   box-shadow: 3px 3px 5px 0 rgba(darken($background-color, 15%), 0.3);
 
   &:hover {
