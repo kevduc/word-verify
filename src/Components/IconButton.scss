@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import '../variables.scss';
 
 @mixin button-background-color($background-color) {
@@ -11,6 +12,12 @@
 
   &:active {
     background-color: darken($background-color, 5%);
+  }
+
+  &:disabled {
+    background-color: color.change($background-color, $saturation: 25%, $lightness: 75%);
+    border-color: color.change($background-color, $saturation: 25%, $lightness: 65%);
+    box-shadow: none;
   }
 }
 

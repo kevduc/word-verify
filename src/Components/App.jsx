@@ -93,8 +93,10 @@ function App() {
     }
   }, [currentWord])
 
-  const assignToCategory = (word, category) =>
+  const assignToCategory = (word, category) => {
+    if (word === null) return
     setWords((words) => [...words.filter((w) => word.id !== w.id), { ...word, category }])
+  }
 
   useEffect(() => {
     if (done) return
@@ -146,13 +148,20 @@ function App() {
           icon="✘"
           type="danger"
           onClick={() => assignToCategory(currentWord, 'discard')}
+          disabled={done ? 'true' : ''}
         />
       </div>
       <div className="word">
         <p id="word">{currentWord?.value ?? ''}</p>
       </div>
       <div className="answer answer--yes">
-        <IconButton title="Keep (Right Arrow)" icon="✔" type="success" onClick={() => assignToCategory(currentWord, 'keep')} />
+        <IconButton
+          title="Keep (Right Arrow)"
+          icon="✔"
+          type="success"
+          onClick={() => assignToCategory(currentWord, 'keep')}
+          disabled={done ? 'true' : ''}
+        />
       </div>
       <div className="meanings">
         <Meanings meanings={currentWord?.meanings} />
