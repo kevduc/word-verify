@@ -7,6 +7,7 @@ function Meanings({ meanings, className, ...rest }) {
       {(() => {
         switch (meanings?.status ?? null) {
           case null:
+            return null
           case 'unfetched':
           case 'loading': {
             return <p className="meanings__status">Loading...</p>
