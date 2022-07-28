@@ -12,6 +12,7 @@ function Meanings({ meanings, className, ...rest }) {
           case 'loading': {
             return <p className="meanings__status">Loading...</p>
           }
+          case 'outdated':
           case 'ready': {
             return (
               <ul className="meanings__list">

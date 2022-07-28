@@ -31,44 +31,31 @@ function App() {
   const wordsCount = words?.length
   const uncategorizedWordsCount = words?.filter((word) => word.category === 'none').length
 
-  const handleFetchDictionaryEntriesSuccess = (word, entries) => {
-    setWords((words) => {
-      const newWords = [...words]
-      const newWord = newWords.find((w) => w.id === word.id)
-
-      if (!Array.isArray(entries) && entries.resolution) {
-        newWord.meanings.value = entries
-        newWord.meanings.status = 'error'
-      } else {
-        newWord.meanings.value = entries.flatMap((entry) => entry.meanings)
-        newWord.meanings.status = 'ready'
-      }
-
-      return newWords
-    })
+  const handleFetchDictionaryEntriesSuccess = (wordId, entries) => {
+    const newMeanings =
+      !Array.isArray(entries) && entries.resolution
+        ? { value: entries, status: 'error' }
+        : { value: entries.flatMap((entry) => entry.meanings), status: 'ready' }
+    setWords((words) => words.map((w) => (w.id === wordId ? { ...w, meanings: newMeanings } : w)))
   }
 
-  const handleFetchDictionaryEntriesError = (word, error) => {
-    console.error(error, word)
-    setWords((words) => {
-      const newWords = [...words]
-      const newWord = newWords.find((w) => w.id === word.id)
-      newWord.meanings.status = 'unknown-error'
-      return newWords
-    })
+  const handleFetchDictionaryEntriesError = (wordId, error) => {
+    console.error(error, wordId)
+    const unknownMeanings = { value: null, status: 'unknown-error' }
+    setWords((words) =>
+      words.map((w) =>
+        w.id === wordId
+          ? { ...w, meanings: (w.meanings?.value ?? null) !== null ? { ...w.meanings, status: 'outdated' } : unknownMeanings }
+          : w
+      )
+    )
   }
 
   const fetchWordMeanings = async (word) => {
-    setWords((words) => {
-      const newWords = [...words]
-      const newWord = newWords.find((w) => w.id === word.id)
-      if ((newWord.meanings ?? null) === null) newWord.meanings = { value: null, status: 'unfetched' }
-      fetchDictionaryEntries(word.value)
-        .then((entries) => handleFetchDictionaryEntriesSuccess(newWord, entries))
-        .catch((e) => handleFetchDictionaryEntriesError(newWord, e))
-      newWord.meanings.status = 'loading'
-      return newWords
-    })
+    setWords((words) => words.map((w) => (w.id === word.id ? { ...w, meanings: { ...w.meanings, status: 'loading' } } : w)))
+    fetchDictionaryEntries(word.value)
+      .then((entries) => handleFetchDictionaryEntriesSuccess(word.id, entries))
+      .catch((e) => handleFetchDictionaryEntriesError(word.id, e))
   }
 
   // Initialize words from local storage
@@ -93,10 +80,10 @@ function App() {
   // Fetch currentWord definition if needed
   useEffect(() => {
     if (currentWord === null) return
-    if (['unfetched', 'error', 'unknown-error', null].includes(currentWord.meanings?.status ?? null)) {
+    if (['outdated', 'unfetched', 'error', 'unknown-error', null].includes(currentWord.meanings?.status ?? null)) {
       fetchWordMeanings(currentWord)
     }
-  }, [currentWord])
+  }, [currentWord?.id])
 
   const assignToCategory = (word, category) => {
     if (word === null) return
