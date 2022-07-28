@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import './App.scss'
-import IconButton from './IconButton'
 import wordList from '../../data/word-list.json'
+
+import IconButton from './IconButton'
 import WordBucket from './WordBucket'
 import Meanings from './Meanings'
 
 const Categories = ['keep', 'discard']
+
 const getInitialWords = () =>
   wordList.words.map((word, idx) => ({
     id: idx,
@@ -69,6 +71,7 @@ function App() {
     })
   }
 
+  // Initialize words from local storage
   useEffect(() => {
     const storedWords = localStorage.getItem('words')
     let storedWordsParsed = null
@@ -81,11 +84,13 @@ function App() {
     setWords(initialWords)
   }, [])
 
+  // Save words in local storage
   useEffect(() => {
     if (words === null) return
     localStorage.setItem('words', JSON.stringify(words.map((word) => ({ ...word, meanings: {} }))))
   }, [words])
 
+  // Fetch currentWord definition if needed
   useEffect(() => {
     if (currentWord === null) return
     if (['unfetched', 'error', 'unknown-error', null].includes(currentWord.meanings?.status ?? null)) {
@@ -98,6 +103,7 @@ function App() {
     setWords((words) => [...words.filter((w) => word.id !== w.id), { ...word, category }])
   }
 
+  // Setup key presses event handlers
   useEffect(() => {
     if (done) return
 
